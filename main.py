@@ -2,6 +2,8 @@ from tkinter import *
 import tkinter as tk
 import ctypes
 import winsound
+import pyscreenshot as ImageGrab
+from tkinter import filedialog
 from PIL import Image, ImageTk
 
 ctypes.windll.shcore.SetProcessDpiAwareness(1)
@@ -16,6 +18,14 @@ def cheta():
     forget_menu()
     menu_on_screen()
 
+def save_screenshot():
+    # Запрашиваем у пользователя путь для сохранения
+    filepath = filedialog.asksaveasfilename(defaultextension='.jpg', filetypes=[("JPG files", "*.jpg")])
+
+    # Если пользователь выбрал путь, сохраняем скриншот
+    if filepath:
+        screenshot = ImageGrab.grab(bbox=(round(w*.0141), round(h*.0277), round(w*.488), round(h*.972)))
+        screenshot.save(filepath)
 
 def menu_on_screen():
     label = Label(menu, image=bg)
@@ -60,6 +70,9 @@ def game():
     forget_menu()
     bmen = tk.Button(command=cheta, image=ex_menu, borderwidth=0, bg='#96b3cf', activebackground='#96b3cf')
     bmen.place(relx=.961, rely=.0556, anchor='center', relwidth=.0469, relheight=0.0833)
+
+    save_bt = tk.Button(command=save_screenshot, image=save,borderwidth=0, bg='#96b3cf', activebackground='#96b3cf')
+    save_bt.place(relx=.909, rely=.0556, anchor='center', relwidth=.0469, relheight=0.0833)
 
     label_bar_cat = Label(bg='#96b3cf', image=bar_cat)
     label_bar_cat.place(relx=.747, rely=.158, anchor='center')
@@ -142,6 +155,10 @@ so_so = Image.open('source/so.png')
 so_so = so_so.resize((round(w * .484), round(h * .963)))
 so_so = ImageTk.PhotoImage(so_so)
 
+save = Image.open('source/save.png')
+save = save.resize((round(w * .0469), round(h * .0833)))
+save = ImageTk.PhotoImage(save)
+
 menu_on_screen()
 
 # Переменная для отслеживания состояния музыки
@@ -156,4 +173,3 @@ menu.mainloop()
 # Music promoted by https://www.chosic.com/free-music/all/
 # Creative Commons CC BY 3.0
 # https://creativecommons.org/licenses/by/3.0/
-# Проверка изменений
