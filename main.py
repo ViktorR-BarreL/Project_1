@@ -18,14 +18,28 @@ def cheta():
     forget_menu()
     menu_on_screen()
 
+
 def save_screenshot():
     # Запрашиваем у пользователя путь для сохранения
     filepath = filedialog.asksaveasfilename(defaultextension='.jpg', filetypes=[("JPG files", "*.jpg")])
 
     # Если пользователь выбрал путь, сохраняем скриншот
     if filepath:
-        screenshot = ImageGrab.grab(bbox=(round(w*.0141), round(h*.0277), round(w*.488), round(h*.972)))
+        screenshot = ImageGrab.grab(bbox=(round(w * .0141), round(h * .0277), round(w * .488), round(h * .972)))
         screenshot.save(filepath)
+
+
+# Функция для включения и выключения музыки
+def toggle_music(button1, img_off, img_on):
+    if music_playing.get():
+        winsound.PlaySound(None, winsound.SND_PURGE)  # Остановить воспроизведение
+        music_playing.set(False)
+        button1.configure(image=img_off)
+    else:
+        winsound.PlaySound("source/music2.wav", winsound.SND_FILENAME | winsound.SND_LOOP | winsound.SND_ASYNC)
+        music_playing.set(True)
+        button1.configure(image=img_on)
+
 
 def menu_on_screen():
     label = Label(menu, image=bg)
@@ -40,30 +54,14 @@ def menu_on_screen():
     b_play = tk.Button(image=play, borderwidth=0, bg='#96b3cf', activebackground='#96b3cf', command=game)
     b_play.place(relx=.5, rely=.71, anchor="center", relwidth=.245, relheight=.13)
 
-    # Функция для включения и выключения музыки
-    def toggle_music():
-        if music_playing.get():
-            winsound.PlaySound(None, winsound.SND_PURGE)  # Остановить воспроизведение
-            music_playing.set(False)
-            music_button.configure(image=sound_off)
-        else:
-            winsound.PlaySound("source/music2.wav",
-                               winsound.SND_FILENAME | winsound.SND_LOOP | winsound.SND_ASYNC)  # Включить музыку
-            music_playing.set(True)
-            music_button.configure(image=sound_on)
-
-    # Создать кнопку для включения/выключения музыки
-    sound_on = Image.open('source/sound_on.png')
-    sound_on = sound_on.resize((round(w * .068), round(h * .121)))
-    sound_on = ImageTk.PhotoImage(sound_on)
-
-    sound_off = Image.open('source/sound_off.png')
-    sound_off = sound_off.resize((round(w * .068), round(h * .121)))
-    sound_off = ImageTk.PhotoImage(sound_off)
-
-    music_button = Button(menu, command=toggle_music, borderwidth=0, bg='#96b3cf', activebackground='#96b3cf',
-                          image=sound_on)
+    music_button = Button(command=lambda: toggle_music(music_button, sound_off, sound_on), borderwidth=0, bg='#96b3cf',
+                          activebackground='#96b3cf')
     music_button.place(relx=.46, rely=.86, anchor='center', relwidth=.07, relheight=.129)
+
+    if not music_playing.get():
+        music_button.configure(image=sound_off)
+    else:
+        music_button.configure(image=sound_on)
 
 
 def game():
@@ -71,7 +69,7 @@ def game():
     bmen = tk.Button(command=cheta, image=ex_menu, borderwidth=0, bg='#96b3cf', activebackground='#96b3cf')
     bmen.place(relx=.961, rely=.0556, anchor='center', relwidth=.0469, relheight=0.0833)
 
-    save_bt = tk.Button(command=save_screenshot, image=save,borderwidth=0, bg='#96b3cf', activebackground='#96b3cf')
+    save_bt = tk.Button(command=save_screenshot, image=save, borderwidth=0, bg='#96b3cf', activebackground='#96b3cf')
     save_bt.place(relx=.909, rely=.0556, anchor='center', relwidth=.0469, relheight=0.0833)
 
     label_bar_cat = Label(bg='#96b3cf', image=bar_cat)
@@ -86,8 +84,14 @@ def game():
     label_bg_charat = Label(bg='#96b3cf', image=so_so)
     label_bg_charat.place(relx=.251, rely=.5, anchor='center')
 
-    music1 = Button(borderwidth=0, bg='#96b3cf', activebackground='#96b3cf', image=sound_off1)
+    music1 = Button(command=lambda: toggle_music(music1, sound_off1, sound_on1), borderwidth=0, bg='#96b3cf',
+                    activebackground='#96b3cf')
     music1.place(relx=.857, rely=.0556, anchor='center', relwidth=.0469, relheight=0.0833)
+
+    if not music_playing.get():
+        music1.configure(image=sound_off1)
+    else:
+        music1.configure(image=sound_on1)
 
 
 # Настройка основного окна
@@ -118,6 +122,15 @@ play = ImageTk.PhotoImage(play)
 ex = Image.open('source/exit.png')
 ex = ex.resize((round(w * .068), round(h * .121)))
 ex = ImageTk.PhotoImage(ex)
+
+# Изображение включения/выключения музыки
+sound_on = Image.open('source/sound_on.png')
+sound_on = sound_on.resize((round(w * .068), round(h * .121)))
+sound_on = ImageTk.PhotoImage(sound_on)
+
+sound_off = Image.open('source/sound_off.png')
+sound_off = sound_off.resize((round(w * .068), round(h * .121)))
+sound_off = ImageTk.PhotoImage(sound_off)
 
 # Элементы игрового окна
 
@@ -159,13 +172,13 @@ save = Image.open('source/save.png')
 save = save.resize((round(w * .0469), round(h * .0833)))
 save = ImageTk.PhotoImage(save)
 
-menu_on_screen()
-
 # Переменная для отслеживания состояния музыки
 music_playing = BooleanVar()
 winsound.PlaySound('source/music2.wav',
                    winsound.SND_FILENAME | winsound.SND_LOOP | winsound.SND_ASYNC)  # Включить музыку
 music_playing.set(True)
+
+menu_on_screen()
 
 menu.mainloop()
 
