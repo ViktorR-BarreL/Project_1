@@ -9,14 +9,9 @@ from PIL import Image, ImageTk
 ctypes.windll.shcore.SetProcessDpiAwareness(1)
 
 
-def forget_menu():
-    for widget in menu.winfo_children():
+def forget_screen():
+    for widget in screen.winfo_children():
         widget.destroy()
-
-
-def cheta():
-    forget_menu()
-    menu_on_screen()
 
 
 def save_screenshot():
@@ -42,13 +37,14 @@ def toggle_music(button1, img_off, img_on):
 
 
 def menu_on_screen():
-    label = Label(menu, image=bg)
+    forget_screen()
+    label = Label(screen, image=bg)
     label.place(relx=.5, rely=.5, anchor='center')
 
     label1 = Label(bg='#96b3cf', image=name)
     label1.place(relx=.5, rely=.31, anchor='center')
 
-    button1 = tk.Button(command=menu.destroy, image=ex, borderwidth=0, bg='#96b3cf', activebackground='#96b3cf')
+    button1 = tk.Button(command=screen.destroy, image=ex, borderwidth=0, bg='#96b3cf', activebackground='#96b3cf')
     button1.place(relx=.54, rely=.86, anchor="center", relwidth=.07, relheight=.129)
 
     b_play = tk.Button(image=play, borderwidth=0, bg='#96b3cf', activebackground='#96b3cf', command=game)
@@ -65,8 +61,8 @@ def menu_on_screen():
 
 
 def game():
-    forget_menu()
-    bmen = tk.Button(command=cheta, image=ex_menu, borderwidth=0, bg='#96b3cf', activebackground='#96b3cf')
+    forget_screen()
+    bmen = tk.Button(command=menu_on_screen, image=ex_menu, borderwidth=0, bg='#96b3cf', activebackground='#96b3cf')
     bmen.place(relx=.961, rely=.0556, anchor='center', relwidth=.0469, relheight=0.0833)
 
     save_bt = tk.Button(command=save_screenshot, image=save, borderwidth=0, bg='#96b3cf', activebackground='#96b3cf')
@@ -84,14 +80,15 @@ def game():
     label_bg_charat = Label(bg='#96b3cf', image=so_so)
     label_bg_charat.place(relx=.251, rely=.5, anchor='center')
 
-    music1 = Button(command=lambda: toggle_music(music1, sound_off1, sound_on1), borderwidth=0, bg='#96b3cf',
-                    activebackground='#96b3cf')
-    music1.place(relx=.857, rely=.0556, anchor='center', relwidth=.0469, relheight=0.0833)
+    music_button2 = Button(command=lambda: toggle_music(music_button2, sound_off1, sound_on1), borderwidth=0,
+                           bg='#96b3cf',
+                           activebackground='#96b3cf')
+    music_button2.place(relx=.857, rely=.0556, anchor='center', relwidth=.0469, relheight=0.0833)
 
     if not music_playing.get():
-        music1.configure(image=sound_off1)
+        music_button2.configure(image=sound_off1)
     else:
-        music1.configure(image=sound_on1)
+        music_button2.configure(image=sound_on1)
 
     body_bt = tk.Button(borderwidth=0, bg='#de6e82', activebackground='#de6e82', image=body_img)
     body_bt.place(relx=.539, rely=.158, anchor='center', relwidth=.04167, relheight=.0741)
@@ -150,61 +147,61 @@ def game():
     color9_bt = tk.Button(borderwidth=0, bg='#de6e82', activebackground='#de6e82', image=color9)
     color9_bt.place(relx=0.956, rely=.909, anchor='center', relwidth=.04167, relheight=.0741)
 
-# Настройка основного окна
-menu = Tk()
 
-w = menu.winfo_screenwidth()
-h = menu.winfo_screenheight()
+# Настройка основного окна
+screen = Tk()
+
+w = screen.winfo_screenwidth()
+h = screen.winfo_screenheight()
 print(w, h)
 
 bg = Image.open('source/bg.png')
 bg = bg.resize((w, h))
 bg = ImageTk.PhotoImage(bg)
 
-menu.attributes('-fullscreen', True)
-menu.configure(bg='#96b3cf')
-
+screen.attributes('-fullscreen', True)
+screen.configure(bg='#96b3cf')
 
 body_img = Image.open('source/body.png')
-body_img = body_img.resize((round(w * (body_img.width/1920)), round(h * (body_img.height / 1080))))
+body_img = body_img.resize((round(w * (body_img.width / 1920)), round(h * (body_img.height / 1080))))
 body_img = ImageTk.PhotoImage(body_img)
 
 features_img = Image.open('source/features.png')
-features_img = features_img.resize((round(w * (features_img.width/1920)),
+features_img = features_img.resize((round(w * (features_img.width / 1920)),
                                     round(h * (features_img.height / 1080))))
 features_img = ImageTk.PhotoImage(features_img)
 
 eyes_img = Image.open('source/eye.png')
-eyes_img = eyes_img.resize((round(w * (eyes_img.width/1920)), round(h * (eyes_img.height / 1080))))
+eyes_img = eyes_img.resize((round(w * (eyes_img.width / 1920)), round(h * (eyes_img.height / 1080))))
 eyes_img = ImageTk.PhotoImage(eyes_img)
 
 hair_img = Image.open('source/hair.png')
-hair_img = hair_img.resize((round(w * (hair_img.width/1920)), round(h * (hair_img.height / 1080))))
+hair_img = hair_img.resize((round(w * (hair_img.width / 1920)), round(h * (hair_img.height / 1080))))
 hair_img = ImageTk.PhotoImage(hair_img)
 
 top_img = Image.open('source/upp.png')
-top_img = top_img.resize((round(w * (top_img.width/1920)), round(h * (top_img.height / 1080))))
+top_img = top_img.resize((round(w * (top_img.width / 1920)), round(h * (top_img.height / 1080))))
 top_img = ImageTk.PhotoImage(top_img)
 
 bottom_img = Image.open('source/downn.png')
-bottom_img = bottom_img.resize((round(w * (bottom_img.width/1920)),
+bottom_img = bottom_img.resize((round(w * (bottom_img.width / 1920)),
                                 round(h * (bottom_img.height / 1080))))
 bottom_img = ImageTk.PhotoImage(bottom_img)
 
 socks_img = Image.open('source/socks.png')
-socks_img = socks_img.resize((round(w * (socks_img.width/1920)), round(h * (socks_img.height / 1080))))
+socks_img = socks_img.resize((round(w * (socks_img.width / 1920)), round(h * (socks_img.height / 1080))))
 socks_img = ImageTk.PhotoImage(socks_img)
 
 shoes_img = Image.open('source/shoes.png')
-shoes_img = shoes_img.resize((round(w * (shoes_img.width/1920)), round(h * (shoes_img.height / 1080))))
+shoes_img = shoes_img.resize((round(w * (shoes_img.width / 1920)), round(h * (shoes_img.height / 1080))))
 shoes_img = ImageTk.PhotoImage(shoes_img)
 
 glasses_img = Image.open('source/glasses.png')
-glasses_img = glasses_img.resize((round(w * (glasses_img.width/1920)), round(h * (glasses_img.height / 1080))))
+glasses_img = glasses_img.resize((round(w * (glasses_img.width / 1920)), round(h * (glasses_img.height / 1080))))
 glasses_img = ImageTk.PhotoImage(glasses_img)
 
 acc_img = Image.open('source/accs.png')
-acc_img = acc_img.resize((round(w * (acc_img.width/1920)), round(h * (acc_img.height / 1080))))
+acc_img = acc_img.resize((round(w * (acc_img.width / 1920)), round(h * (acc_img.height / 1080))))
 acc_img = ImageTk.PhotoImage(acc_img)
 
 color1 = Image.open('source/color1.png')
@@ -315,7 +312,7 @@ music_playing.set(True)
 
 menu_on_screen()
 
-menu.mainloop()
+screen.mainloop()
 
 # Beach by Sakura Girl | https://soundcloud.com/sakuragirl_official
 # Music promoted by https://www.chosic.com/free-music/all/
