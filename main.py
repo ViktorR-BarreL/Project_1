@@ -93,6 +93,62 @@ def game():
     else:
         music1.configure(image=sound_on1)
 
+    body_bt = tk.Button(borderwidth=0, bg='#de6e82', activebackground='#de6e82', image=body_img)
+    body_bt.place(relx=.539, rely=.158, anchor='center', relwidth=.04167, relheight=.0741)
+
+    features_bt = tk.Button(borderwidth=0, bg='#de6e82', activebackground='#de6e82', image=features_img)
+    features_bt.place(relx=.585, rely=.158, anchor='center', relwidth=.04167, relheight=.0741)
+
+    eyes_bt = tk.Button(borderwidth=0, bg='#de6e82', activebackground='#de6e82', image=eyes_img)
+    eyes_bt.place(relx=.632, rely=.158, anchor='center', relwidth=.04167, relheight=.0741)
+
+    hair_bt = tk.Button(borderwidth=0, bg='#de6e82', activebackground='#de6e82', image=hair_img)
+    hair_bt.place(relx=.678, rely=.158, anchor='center', relwidth=.04167, relheight=.0741)
+
+    top_bt = tk.Button(borderwidth=0, bg='#de6e82', activebackground='#de6e82', image=top_img)
+    top_bt.place(relx=.724, rely=.158, anchor='center', relwidth=.04167, relheight=.0741)
+
+    bottom_bt = tk.Button(borderwidth=0, bg='#de6e82', activebackground='#de6e82', image=bottom_img)
+    bottom_bt.place(relx=.771, rely=.158, anchor='center', relwidth=.04167, relheight=.0741)
+
+    socks_bt = tk.Button(borderwidth=0, bg='#de6e82', activebackground='#de6e82', image=socks_img)
+    socks_bt.place(relx=.817, rely=.158, anchor='center', relwidth=.04167, relheight=.0741)
+
+    shoes_bt = tk.Button(borderwidth=0, bg='#de6e82', activebackground='#de6e82', image=shoes_img)
+    shoes_bt.place(relx=.864, rely=.158, anchor='center', relwidth=.04167, relheight=.0741)
+
+    glasses_bt = tk.Button(borderwidth=0, bg='#de6e82', activebackground='#de6e82', image=glasses_img)
+    glasses_bt.place(relx=.9099, rely=.158, anchor='center', relwidth=.04167, relheight=.0741)
+
+    acc_bt = tk.Button(borderwidth=0, bg='#de6e82', activebackground='#de6e82', image=acc_img)
+    acc_bt.place(relx=.956, rely=.158, anchor='center', relwidth=.04167, relheight=.0741)
+
+    color1_bt = tk.Button(borderwidth=0, bg='#de6e82', activebackground='#de6e82', image=color1)
+    color1_bt.place(relx=0.956, rely=.278, anchor='center', relwidth=.04167, relheight=.0741)
+
+    color2_bt = tk.Button(borderwidth=0, bg='#de6e82', activebackground='#de6e82', image=color2)
+    color2_bt.place(relx=0.956, rely=.356, anchor='center', relwidth=.04167, relheight=.0741)
+
+    color3_bt = tk.Button(borderwidth=0, bg='#de6e82', activebackground='#de6e82', image=color3)
+    color3_bt.place(relx=0.956, rely=.435, anchor='center', relwidth=.04167, relheight=.0741)
+
+    color4_bt = tk.Button(borderwidth=0, bg='#de6e82', activebackground='#de6e82', image=color4)
+    color4_bt.place(relx=0.956, rely=.514, anchor='center', relwidth=.04167, relheight=.0741)
+
+    color5_bt = tk.Button(borderwidth=0, bg='#de6e82', activebackground='#de6e82', image=color5)
+    color5_bt.place(relx=0.956, rely=.593, anchor='center', relwidth=.04167, relheight=.0741)
+
+    color6_bt = tk.Button(borderwidth=0, bg='#de6e82', activebackground='#de6e82', image=color6)
+    color6_bt.place(relx=0.956, rely=.671, anchor='center', relwidth=.04167, relheight=.0741)
+
+    color7_bt = tk.Button(borderwidth=0, bg='#de6e82', activebackground='#de6e82', image=color7)
+    color7_bt.place(relx=0.956, rely=.75, anchor='center', relwidth=.04167, relheight=.0741)
+
+    color8_bt = tk.Button(borderwidth=0, bg='#de6e82', activebackground='#de6e82', image=color8)
+    color8_bt.place(relx=0.956, rely=.829, anchor='center', relwidth=.04167, relheight=.0741)
+
+    color9_bt = tk.Button(borderwidth=0, bg='#de6e82', activebackground='#de6e82', image=color9)
+    color9_bt.place(relx=0.956, rely=.909, anchor='center', relwidth=.04167, relheight=.0741)
 
 # Настройка основного окна
 menu = Tk()
@@ -107,6 +163,85 @@ bg = ImageTk.PhotoImage(bg)
 
 menu.attributes('-fullscreen', True)
 menu.configure(bg='#96b3cf')
+
+
+body_img = Image.open('source/body.png')
+body_img = body_img.resize((round(w * (body_img.width/1920)), round(h * (body_img.height / 1080))))
+body_img = ImageTk.PhotoImage(body_img)
+
+features_img = Image.open('source/features.png')
+features_img = features_img.resize((round(w * (features_img.width/1920)),
+                                    round(h * (features_img.height / 1080))))
+features_img = ImageTk.PhotoImage(features_img)
+
+eyes_img = Image.open('source/eye.png')
+eyes_img = eyes_img.resize((round(w * (eyes_img.width/1920)), round(h * (eyes_img.height / 1080))))
+eyes_img = ImageTk.PhotoImage(eyes_img)
+
+hair_img = Image.open('source/hair.png')
+hair_img = hair_img.resize((round(w * (hair_img.width/1920)), round(h * (hair_img.height / 1080))))
+hair_img = ImageTk.PhotoImage(hair_img)
+
+top_img = Image.open('source/upp.png')
+top_img = top_img.resize((round(w * (top_img.width/1920)), round(h * (top_img.height / 1080))))
+top_img = ImageTk.PhotoImage(top_img)
+
+bottom_img = Image.open('source/downn.png')
+bottom_img = bottom_img.resize((round(w * (bottom_img.width/1920)),
+                                round(h * (bottom_img.height / 1080))))
+bottom_img = ImageTk.PhotoImage(bottom_img)
+
+socks_img = Image.open('source/socks.png')
+socks_img = socks_img.resize((round(w * (socks_img.width/1920)), round(h * (socks_img.height / 1080))))
+socks_img = ImageTk.PhotoImage(socks_img)
+
+shoes_img = Image.open('source/shoes.png')
+shoes_img = shoes_img.resize((round(w * (shoes_img.width/1920)), round(h * (shoes_img.height / 1080))))
+shoes_img = ImageTk.PhotoImage(shoes_img)
+
+glasses_img = Image.open('source/glasses.png')
+glasses_img = glasses_img.resize((round(w * (glasses_img.width/1920)), round(h * (glasses_img.height / 1080))))
+glasses_img = ImageTk.PhotoImage(glasses_img)
+
+acc_img = Image.open('source/accs.png')
+acc_img = acc_img.resize((round(w * (acc_img.width/1920)), round(h * (acc_img.height / 1080))))
+acc_img = ImageTk.PhotoImage(acc_img)
+
+color1 = Image.open('source/color1.png')
+color1 = color1.resize((round(w * .04167), round(h * .0741)))
+color1 = ImageTk.PhotoImage(color1)
+
+color2 = Image.open('source/color2.png')
+color2 = color2.resize((round(w * .04167), round(h * .0741)))
+color2 = ImageTk.PhotoImage(color2)
+
+color3 = Image.open('source/color3.png')
+color3 = color3.resize((round(w * .04167), round(h * .0741)))
+color3 = ImageTk.PhotoImage(color3)
+
+color4 = Image.open('source/color4.png')
+color4 = color4.resize((round(w * .04167), round(h * .0741)))
+color4 = ImageTk.PhotoImage(color4)
+
+color5 = Image.open('source/color5.png')
+color5 = color5.resize((round(w * .04167), round(h * .0741)))
+color5 = ImageTk.PhotoImage(color5)
+
+color6 = Image.open('source/color6.png')
+color6 = color6.resize((round(w * .04167), round(h * .0741)))
+color6 = ImageTk.PhotoImage(color6)
+
+color7 = Image.open('source/color7.png')
+color7 = color7.resize((round(w * .04167), round(h * .0741)))
+color7 = ImageTk.PhotoImage(color7)
+
+color8 = Image.open('source/color8.png')
+color8 = color8.resize((round(w * .04167), round(h * .0741)))
+color8 = ImageTk.PhotoImage(color8)
+
+color9 = Image.open('source/color9.png')
+color9 = color9.resize((round(w * .04167), round(h * .0741)))
+color9 = ImageTk.PhotoImage(color9)
 
 # Название Игры
 name = Image.open('source/GameName.png')
