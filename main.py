@@ -154,10 +154,6 @@ screen = Tk()
 w = screen.winfo_screenwidth()
 h = screen.winfo_screenheight()
 
-bg = Image.open('source/etc/bg.png')
-bg = bg.resize((w, h))
-bg = ImageTk.PhotoImage(bg)
-
 screen.attributes('-fullscreen', True)
 screen.configure(bg='#96b3cf')
 
@@ -167,6 +163,9 @@ def process_image(path):
     img = img.resize((round(w * (img.width / 1920)), round(h * (img.height / 1080))))
     img = ImageTk.PhotoImage(img)
     return img
+
+
+bg = process_image('source/etc/bg.png')
 
 # Категории выбора
 body_img = process_image('source/etc/body.png')
