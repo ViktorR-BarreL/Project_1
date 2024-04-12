@@ -65,7 +65,7 @@ def create_buttons(bt_count):
 
 
 def hair_buttons():
-    global buttons, jh
+    global buttons
     for button in buttons:
         button.destroy()
     buttons.clear()
@@ -82,18 +82,20 @@ def hair_buttons():
         image = process_image(f'source/{i}/{k}/slots/{n}.png')
         # Если это третья кнопка, удаляем 0-й слой и добавляем 7-й слой
         if n == 2:
-            button = tk.Button(image=image, command=lambda s=n: (selected_n.set(s), image_objects.pop("layer0", None), selected_layer.set(7), body()),
-                               bg='#de6e82', activebackground='#de6e82', borderwidth=0)
+            button = tk.Button(image=image, command=lambda s=n: (selected_n.set(s), image_objects.pop("layer0", None),
+                               selected_layer.set(7), body()), bg='#de6e82', activebackground='#de6e82', borderwidth=0)
         else:
             layer_num = 6 if n < 3 else 0
             # Если это кнопка с номером 1 или 2, добавляем 6-й слой
             # Если это кнопка с номером 4-9, удаляем 7-й слой и добавляем 0-й слой
             if n < 2:
-                button = tk.Button(image=image, command=lambda s=n, layer=layer_num: (selected_n.set(s), selected_layer.set(layer), body()),
-                                   bg='#de6e82', activebackground='#de6e82', borderwidth=0)
+                button = tk.Button(image=image, command=lambda s=n, layer=layer_num: (selected_n.set(s),
+                                   selected_layer.set(layer), body()), bg='#de6e82', activebackground='#de6e82',
+                                   borderwidth=0)
             else:
-                button = tk.Button(image=image, command=lambda s=n, layer=layer_num: (selected_n.set(s), image_objects.pop("layer7", None), selected_layer.set(layer), body()),
-                                   bg='#de6e82', activebackground='#de6e82', borderwidth=0)
+                button = tk.Button(image=image, command=lambda s=n, layer=layer_num: (selected_n.set(s),
+                                   image_objects.pop("layer7", None), selected_layer.set(layer), body()), bg='#de6e82',
+                                   activebackground='#de6e82', borderwidth=0)
         button.image = image  # Сохраняем ссылку на изображение, чтобы оно не было удалено сборщиком мусора
         button.place(x=w * .586 + (n % 3) * (w * .124 + x_padding),
                      y=h * .366 + (n // 3) * (h * .220 + y_padding), anchor='center')
@@ -235,7 +237,7 @@ def game():
     hair_bt.place(relx=.678, rely=.158, anchor='center', relwidth=.04167, relheight=.0741)
 
     top_bt = tk.Button(command=lambda layer_num=10, k=4, j=0: (selected_layer.set(layer_num), selected_k.set(k),
-                                                              selected_j.set(j), create_buttons(9)),
+                                                               selected_j.set(j), create_buttons(9)),
                        borderwidth=0, bg='#de6e82', activebackground='#de6e82', image=top_img)
     top_bt.place(relx=.724, rely=.158, anchor='center', relwidth=.04167, relheight=.0741)
 
