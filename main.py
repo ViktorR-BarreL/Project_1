@@ -23,7 +23,7 @@ def reset_game():
 def draw_layers():
     global canvas1
     canvas1.delete("all")  # очищаем холст перед отрисовкой слоев
-    for layer_number in range(0, 13):  # отрисовываем слои в порядке 1, 2, 3, 4, 5
+    for layer_number in range(0, 14):  # отрисовываем слои в порядке 1, 2,...13
         layer = f"layer{layer_number}"
         if layer in image_objects:
             canvas1.create_image(0, 0, image=images[layer], anchor='nw')
@@ -65,7 +65,7 @@ def create_buttons(bt_count):
 
 
 def hair_buttons():
-    global buttons
+    global buttons, jh
     for button in buttons:
         button.destroy()
     buttons.clear()
@@ -98,9 +98,6 @@ def hair_buttons():
         button.place(x=w * .586 + (n % 3) * (w * .124 + x_padding),
                      y=h * .366 + (n // 3) * (h * .220 + y_padding), anchor='center')
         buttons.append(button)
-
-
-
 
 
 def body():
@@ -237,32 +234,32 @@ def game():
                         borderwidth=0, bg='#de6e82', activebackground='#de6e82', image=hair_img)
     hair_bt.place(relx=.678, rely=.158, anchor='center', relwidth=.04167, relheight=.0741)
 
-    top_bt = tk.Button(command=lambda layer_num=7, k=4, j=0: (selected_layer.set(layer_num), selected_k.set(k),
+    top_bt = tk.Button(command=lambda layer_num=10, k=4, j=0: (selected_layer.set(layer_num), selected_k.set(k),
                                                               selected_j.set(j), create_buttons(9)),
                        borderwidth=0, bg='#de6e82', activebackground='#de6e82', image=top_img)
     top_bt.place(relx=.724, rely=.158, anchor='center', relwidth=.04167, relheight=.0741)
 
-    bottom_bt = tk.Button(command=lambda layer_num=8, k=5, j=0: (selected_layer.set(layer_num), selected_k.set(k),
+    bottom_bt = tk.Button(command=lambda layer_num=9, k=5, j=0: (selected_layer.set(layer_num), selected_k.set(k),
                                                                  selected_j.set(j), create_buttons(7)),
                           borderwidth=0, bg='#de6e82', activebackground='#de6e82', image=bottom_img)
     bottom_bt.place(relx=.771, rely=.158, anchor='center', relwidth=.04167, relheight=.0741)
 
-    socks_bt = tk.Button(command=lambda layer_num=9, k=6, j=0: (selected_layer.set(layer_num), selected_k.set(k),
+    socks_bt = tk.Button(command=lambda layer_num=8, k=6, j=0: (selected_layer.set(layer_num), selected_k.set(k),
                                                                 selected_j.set(j), create_buttons(4)),
                          borderwidth=0, bg='#de6e82', activebackground='#de6e82', image=socks_img)
     socks_bt.place(relx=.817, rely=.158, anchor='center', relwidth=.04167, relheight=.0741)
 
-    shoes_bt = tk.Button(command=lambda layer_num=10, k=7, j=0: (selected_layer.set(layer_num), selected_k.set(k),
+    shoes_bt = tk.Button(command=lambda layer_num=11, k=7, j=0: (selected_layer.set(layer_num), selected_k.set(k),
                                                                  selected_j.set(j), create_buttons(9)),
                          borderwidth=0, bg='#de6e82', activebackground='#de6e82', image=shoes_img)
     shoes_bt.place(relx=.864, rely=.158, anchor='center', relwidth=.04167, relheight=.0741)
 
-    glasses_bt = tk.Button(command=lambda layer_num=11, k=8, j=0: (selected_layer.set(layer_num), selected_k.set(k),
+    glasses_bt = tk.Button(command=lambda layer_num=12, k=8, j=0: (selected_layer.set(layer_num), selected_k.set(k),
                                                                    selected_j.set(j), create_buttons(2)),
                            borderwidth=0, bg='#de6e82', activebackground='#de6e82', image=glasses_img)
     glasses_bt.place(relx=.9099, rely=.158, anchor='center', relwidth=.04167, relheight=.0741)
 
-    acc_bt = tk.Button(command=lambda layer_num=12, k=9, j=0: (selected_layer.set(layer_num), selected_k.set(k),
+    acc_bt = tk.Button(command=lambda layer_num=13, k=9, j=0: (selected_layer.set(layer_num), selected_k.set(k),
                                                                selected_j.set(j), create_buttons(6)),
                        borderwidth=0, bg='#de6e82', activebackground='#de6e82', image=acc_img)
     acc_bt.place(relx=.956, rely=.158, anchor='center', relwidth=.04167, relheight=.0741)
