@@ -40,7 +40,41 @@ def add_layer(layer_number, image_path):
     draw_layers()
 
 
-def create_buttons(bt_count):
+def delete_colors():
+    global colors
+    for color in colors:
+        color.destroy()
+    colors.clear()
+
+
+def color_on_scr(cc):
+    global colors
+    delete_colors()
+
+    for i in range(cc):
+        # Загрузка изображения для кнопки
+        image = process_image(f'source/etc/color{i}.png')
+        # Создание кнопок
+        color = tk.Button(command=lambda j=i: (selected_j.set(j), body()), borderwidth=0, bg='#de6e82',
+                          activebackground='#de6e82', image=image)
+        color.place(relx=0.956, rely=.278 + i * .0796, anchor='center', relwidth=.04167, relheight=.0741)
+        color.image = image  # Сохраняем ссылку на изображение, чтобы оно не было удалено сборщиком мусора
+        colors.append(color)
+
+
+# Списки для хранения количества цветов по каждой категории
+other = [9, 9, 9, 9, 9, 9, 9, 9, 9]
+feat_c = [1, 5, 1, 8]
+up_c = [9, 5, 9, 9, 2, 9, 9, 9, 9]
+down_c = [8, 8, 8, 9, 9, 8, 8]
+socks_c = [2, 5, 4, 4]
+shoes_c = [9, 7, 5, 5, 9, 9, 5, 7, 9]
+glass_c = [2, 2]
+acs_c = [3, 5, 4, 3, 4, 3]
+eye_c = [9, 9, 1]
+
+
+def create_buttons(bt_count, list_c):
     global buttons
     for button in buttons:
         button.destroy()
@@ -55,8 +89,9 @@ def create_buttons(bt_count):
     k = selected_k.get()
     for n in range(bt_count):  # Создаем кнопки
         # Загрузка изображения для кнопки
+        cc = list_c[n]
         image = process_image(f'source/{i}/{k}/slots/{n}.png')
-        button = tk.Button(image=image, command=lambda s=n: (selected_n.set(s), body()),
+        button = tk.Button(image=image, command=lambda s=n, z=cc: (selected_n.set(s), selected_j.set(0), color_on_scr(z), body()),
                            bg='#de6e82', activebackground='#de6e82', borderwidth=0)
         button.image = image  # Сохраняем ссылку на изображение, чтобы оно не было удалено сборщиком мусора
         button.place(x=w * .586 + (n % 3) * (w * .124 + x_padding),
@@ -83,18 +118,23 @@ def hair_buttons():
         # Если это третья кнопка, удаляем 0-й слой и добавляем 7-й слой
         if n == 2:
             button = tk.Button(image=image, command=lambda s=n: (selected_n.set(s), image_objects.pop("layer0", None),
-                               selected_layer.set(7), body()), bg='#de6e82', activebackground='#de6e82', borderwidth=0)
+                                                                 selected_layer.set(7), body(), color_on_scr(9)), bg='#de6e82',
+                               activebackground='#de6e82', borderwidth=0)
         else:
             layer_num = 6 if n < 3 else 0
             # Если это кнопка с номером 1 или 2, добавляем 6-й слой
             # Если это кнопка с номером 4-9, удаляем 7-й слой и добавляем 0-й слой
             if n < 2:
                 button = tk.Button(image=image, command=lambda s=n, layer=layer_num: (selected_n.set(s),
-                                   selected_layer.set(layer), body()), bg='#de6e82', activebackground='#de6e82',
+                                                                                      selected_layer.set(layer),
+                                                                                      body(), color_on_scr(9)), bg='#de6e82',
+                                   activebackground='#de6e82',
                                    borderwidth=0)
             else:
                 button = tk.Button(image=image, command=lambda s=n, layer=layer_num: (selected_n.set(s),
-                                   image_objects.pop("layer7", None), selected_layer.set(layer), body()), bg='#de6e82',
+                                                                                      image_objects.pop("layer7", None),
+                                                                                      selected_layer.set(layer),
+                                                                                      body(), color_on_scr(9)), bg='#de6e82',
                                    activebackground='#de6e82', borderwidth=0)
         button.image = image  # Сохраняем ссылку на изображение, чтобы оно не было удалено сборщиком мусора
         button.place(x=w * .586 + (n % 3) * (w * .124 + x_padding),
@@ -157,8 +197,9 @@ def menu_on_screen():
     b_play = tk.Button(image=play, borderwidth=0, bg='#96b3cf', activebackground='#96b3cf', command=choice_of_type)
     b_play.place(relx=.5, rely=.71, anchor="center", relwidth=.245, relheight=.13)
 
-    music_button = Button(command=lambda: toggle_music(music_button, sound_off, sound_on), borderwidth=0, bg='#96b3cf',
-                          activebackground='#96b3cf')
+    music_button = tk.Button(command=lambda: toggle_music(music_button, sound_off, sound_on), borderwidth=0,
+                             bg='#96b3cf',
+                             activebackground='#96b3cf')
     music_button.place(relx=.46, rely=.86, anchor='center', relwidth=.07, relheight=.129)
 
     if not music_playing.get():
@@ -205,6 +246,8 @@ def game():
     i2 = selected_i.get()
     add_layer(4, f'source/{i2}/0/контур.png')
     add_layer(3, f'source/{i2}/0/тень.png')
+    add_layer(1, f'source/{i2}/0/0/0.png')
+    add_layer(5, f'source/{i2}/2/0/0.png')
 
     music_button2 = Button(command=lambda: toggle_music(music_button2, sound_off1, sound_on1), borderwidth=0,
                            bg='#96b3cf',
@@ -216,91 +259,46 @@ def game():
     else:
         music_button2.configure(image=sound_on1)
 
-    body_bt = tk.Button(command=lambda layer_num=1, k=0, j=0: (selected_layer.set(layer_num), selected_k.set(k),
-                                                               selected_j.set(j), create_buttons(1)),
+    body_bt = tk.Button(command=lambda layer_num=1, k=0: (selected_layer.set(layer_num), selected_k.set(k), delete_colors(), create_buttons(1, other)),
                         borderwidth=0, bg='#de6e82', activebackground='#de6e82', image=body_img)
     body_bt.place(relx=.539, rely=.158, anchor='center', relwidth=.04167, relheight=.0741)
 
-    features_bt = tk.Button(command=lambda layer_num=2, k=1, j=0: (selected_layer.set(layer_num), selected_k.set(k),
-                                                                   selected_j.set(j), create_buttons(4)), borderwidth=0,
+    features_bt = tk.Button(command=lambda layer_num=2, k=1, j=0: (selected_layer.set(layer_num), selected_k.set(k), delete_colors(), create_buttons(4, feat_c)), borderwidth=0,
                             bg='#de6e82', activebackground='#de6e82', image=features_img)
     features_bt.place(relx=.585, rely=.158, anchor='center', relwidth=.04167, relheight=.0741)
 
-    eyes_bt = tk.Button(command=lambda layer_num=5, k=2, j=0: (selected_layer.set(layer_num), selected_k.set(k),
-                                                               selected_j.set(j), create_buttons(3)),
+    eyes_bt = tk.Button(command=lambda layer_num=5, k=2: (selected_layer.set(layer_num), selected_k.set(k), delete_colors(), create_buttons(3, eye_c)),
                         borderwidth=0, bg='#de6e82', activebackground='#de6e82', image=eyes_img)
     eyes_bt.place(relx=.632, rely=.158, anchor='center', relwidth=.04167, relheight=.0741)
 
-    hair_bt = tk.Button(command=lambda layer_num=6, k=3, j=0: (selected_layer.set(layer_num), selected_k.set(k),
+    hair_bt = tk.Button(command=lambda layer_num=6, k=3, j=0: (selected_layer.set(layer_num), selected_k.set(k), delete_colors(),
                                                                selected_j.set(j), hair_buttons()),
                         borderwidth=0, bg='#de6e82', activebackground='#de6e82', image=hair_img)
     hair_bt.place(relx=.678, rely=.158, anchor='center', relwidth=.04167, relheight=.0741)
 
-    top_bt = tk.Button(command=lambda layer_num=10, k=4, j=0: (selected_layer.set(layer_num), selected_k.set(k),
-                                                               selected_j.set(j), create_buttons(9)),
+    top_bt = tk.Button(command=lambda layer_num=10, k=4: (selected_layer.set(layer_num), selected_k.set(k), delete_colors(), create_buttons(9, up_c)),
                        borderwidth=0, bg='#de6e82', activebackground='#de6e82', image=top_img)
     top_bt.place(relx=.724, rely=.158, anchor='center', relwidth=.04167, relheight=.0741)
 
-    bottom_bt = tk.Button(command=lambda layer_num=9, k=5, j=0: (selected_layer.set(layer_num), selected_k.set(k),
-                                                                 selected_j.set(j), create_buttons(7)),
+    bottom_bt = tk.Button(command=lambda layer_num=9, k=5: (selected_layer.set(layer_num), selected_k.set(k), delete_colors(), create_buttons(7, down_c)),
                           borderwidth=0, bg='#de6e82', activebackground='#de6e82', image=bottom_img)
     bottom_bt.place(relx=.771, rely=.158, anchor='center', relwidth=.04167, relheight=.0741)
 
-    socks_bt = tk.Button(command=lambda layer_num=8, k=6, j=0: (selected_layer.set(layer_num), selected_k.set(k),
-                                                                selected_j.set(j), create_buttons(4)),
+    socks_bt = tk.Button(command=lambda layer_num=8, k=6: (selected_layer.set(layer_num), selected_k.set(k), delete_colors(), create_buttons(4, socks_c)),
                          borderwidth=0, bg='#de6e82', activebackground='#de6e82', image=socks_img)
     socks_bt.place(relx=.817, rely=.158, anchor='center', relwidth=.04167, relheight=.0741)
 
-    shoes_bt = tk.Button(command=lambda layer_num=11, k=7, j=0: (selected_layer.set(layer_num), selected_k.set(k),
-                                                                 selected_j.set(j), create_buttons(9)),
+    shoes_bt = tk.Button(command=lambda layer_num=11, k=7: (selected_layer.set(layer_num), selected_k.set(k), delete_colors(), create_buttons(9, shoes_c)),
                          borderwidth=0, bg='#de6e82', activebackground='#de6e82', image=shoes_img)
     shoes_bt.place(relx=.864, rely=.158, anchor='center', relwidth=.04167, relheight=.0741)
 
-    glasses_bt = tk.Button(command=lambda layer_num=12, k=8, j=0: (selected_layer.set(layer_num), selected_k.set(k),
-                                                                   selected_j.set(j), create_buttons(2)),
+    glasses_bt = tk.Button(command=lambda layer_num=12, k=8: (selected_layer.set(layer_num), selected_k.set(k), delete_colors(), create_buttons(2, glass_c)),
                            borderwidth=0, bg='#de6e82', activebackground='#de6e82', image=glasses_img)
     glasses_bt.place(relx=.9099, rely=.158, anchor='center', relwidth=.04167, relheight=.0741)
 
-    acc_bt = tk.Button(command=lambda layer_num=13, k=9, j=0: (selected_layer.set(layer_num), selected_k.set(k),
-                                                               selected_j.set(j), create_buttons(6)),
+    acc_bt = tk.Button(command=lambda layer_num=13, k=9: (selected_layer.set(layer_num), selected_k.set(k), delete_colors(), create_buttons(6, acs_c)),
                        borderwidth=0, bg='#de6e82', activebackground='#de6e82', image=acc_img)
     acc_bt.place(relx=.956, rely=.158, anchor='center', relwidth=.04167, relheight=.0741)
-
-    color1_bt = tk.Button(command=lambda j=0: (selected_j.set(j), body()), borderwidth=0,
-                          bg='#de6e82', activebackground='#de6e82', image=color1)
-    color1_bt.place(relx=0.956, rely=.278, anchor='center', relwidth=.04167, relheight=.0741)
-
-    color2_bt = tk.Button(command=lambda j=1: (selected_j.set(j), body()), borderwidth=0, bg='#de6e82',
-                          activebackground='#de6e82', image=color2)
-    color2_bt.place(relx=0.956, rely=.356, anchor='center', relwidth=.04167, relheight=.0741)
-
-    color3_bt = tk.Button(command=lambda j=2: (selected_j.set(j), body()), borderwidth=0, bg='#de6e82',
-                          activebackground='#de6e82', image=color3)
-    color3_bt.place(relx=0.956, rely=.435, anchor='center', relwidth=.04167, relheight=.0741)
-
-    color4_bt = tk.Button(command=lambda j=3: (selected_j.set(j), body()), borderwidth=0, bg='#de6e82',
-                          activebackground='#de6e82', image=color4)
-    color4_bt.place(relx=0.956, rely=.514, anchor='center', relwidth=.04167, relheight=.0741)
-
-    color5_bt = tk.Button(command=lambda j=4: (selected_j.set(j), body()), borderwidth=0, bg='#de6e82',
-                          activebackground='#de6e82', image=color5)
-    color5_bt.place(relx=0.956, rely=.593, anchor='center', relwidth=.04167, relheight=.0741)
-
-    color6_bt = tk.Button(command=lambda j=5: (selected_j.set(j), body()), borderwidth=0, bg='#de6e82',
-                          activebackground='#de6e82', image=color6)
-    color6_bt.place(relx=0.956, rely=.671, anchor='center', relwidth=.04167, relheight=.0741)
-
-    color7_bt = tk.Button(command=lambda j=6: (selected_j.set(j), body()), borderwidth=0, bg='#de6e82',
-                          activebackground='#de6e82', image=color7)
-    color7_bt.place(relx=0.956, rely=.75, anchor='center', relwidth=.04167, relheight=.0741)
-
-    color8_bt = tk.Button(command=lambda j=7: (selected_j.set(j), body()), borderwidth=0, bg='#de6e82',
-                          activebackground='#de6e82', image=color8)
-    color8_bt.place(relx=0.956, rely=.829, anchor='center', relwidth=.04167, relheight=.0741)
-
-    color9_bt = tk.Button(command=lambda j=8: (selected_j.set(j), body()), borderwidth=0, bg='#de6e82',
-                          activebackground='#de6e82', image=color9)
-    color9_bt.place(relx=0.956, rely=.909, anchor='center', relwidth=.04167, relheight=.0741)
 
 
 # Настройка основного окна
@@ -335,16 +333,6 @@ shoes_img = process_image('source/etc/shoes.png')
 glasses_img = process_image('source/etc/glasses.png')
 acc_img = process_image('source/etc/accs.png')
 
-# Цвета
-color1 = process_image('source/etc/color1.png')
-color2 = process_image('source/etc/color2.png')
-color3 = process_image('source/etc/color3.png')
-color4 = process_image('source/etc/color4.png')
-color5 = process_image('source/etc/color5.png')
-color6 = process_image('source/etc/color6.png')
-color7 = process_image('source/etc/color7.png')
-color8 = process_image('source/etc/color8.png')
-color9 = process_image('source/etc/color9.png')
 
 # Название Игры
 name = process_image('source/etc/GameName.png')
@@ -407,6 +395,7 @@ selected_layer = tk.IntVar()
 selected_layer.set(0)
 
 buttons = []
+colors = []
 
 menu_on_screen()
 
