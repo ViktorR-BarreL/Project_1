@@ -302,11 +302,11 @@ def game():
                         borderwidth=0, bg='#de6e82', activebackground='#de6e82', image=hair_img)
     hair_bt.place(relx=.539 + 3 * .0464, rely=.158, anchor='center', relwidth=.04167, relheight=.0741)
 
-    top_bt = tk.Button(command=lambda layer_num=10, k=4: (bye_bye(4, 10), selected_layer.set(layer_num), selected_k.set(k), delete_colors(), create_buttons(9, up_c)),
+    top_bt = tk.Button(command=lambda layer_num=11, k=4: (bye_bye(4, 11), selected_layer.set(layer_num), selected_k.set(k), delete_colors(), create_buttons(9, up_c)),
                        borderwidth=0, bg='#de6e82', activebackground='#de6e82', image=top_img)
     top_bt.place(relx=.539 + 4 * .0464, rely=.158, anchor='center', relwidth=.04167, relheight=.0741)
 
-    bottom_bt = tk.Button(command=lambda layer_num=9, k=5: (bye_bye(5, 9), selected_layer.set(layer_num), selected_k.set(k), delete_colors(), create_buttons(7, down_c)),
+    bottom_bt = tk.Button(command=lambda layer_num=10, k=5: (bye_bye(5, 10), selected_layer.set(layer_num), selected_k.set(k), delete_colors(), create_buttons(7, down_c)),
                           borderwidth=0, bg='#de6e82', activebackground='#de6e82', image=bottom_img)
     bottom_bt.place(relx=.539 + 5 * .0464, rely=.158, anchor='center', relwidth=.04167, relheight=.0741)
 
@@ -314,7 +314,7 @@ def game():
                          borderwidth=0, bg='#de6e82', activebackground='#de6e82', image=socks_img)
     socks_bt.place(relx=.539 + 6 * .0464, rely=.158, anchor='center', relwidth=.04167, relheight=.0741)
 
-    shoes_bt = tk.Button(command=lambda layer_num=11, k=7: (bye_bye(7, 11), selected_layer.set(layer_num), selected_k.set(k), delete_colors(), create_buttons(9, shoes_c)),
+    shoes_bt = tk.Button(command=lambda layer_num=9, k=7: (bye_bye(7, 9), selected_layer.set(layer_num), selected_k.set(k), delete_colors(), create_buttons(9, shoes_c)),
                          borderwidth=0, bg='#de6e82', activebackground='#de6e82', image=shoes_img)
     shoes_bt.place(relx=.539 + 7 * .0464, rely=.158, anchor='center', relwidth=.04167, relheight=.0741)
 
