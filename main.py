@@ -26,7 +26,7 @@ def draw_layers():
     for layer_number in range(0, 14):  # отрисовываем слои в порядке 1, 2,...13
         layer = f"layer{layer_number}"
         if layer in image_objects:
-            canvas1.create_image(0, 0, image=images[layer], anchor='nw')
+            canvas1.create_image((w * 0.242), (h * 0.5), image=images[layer], anchor='center')
 
 
 def add_layer(layer_number, image_path):
@@ -35,8 +35,8 @@ def add_layer(layer_number, image_path):
     images[f"layer{layer_number}"] = image
     if f"layer{layer_number}" in image_objects:
         canvas1.delete(image_objects[f"layer{layer_number}"])
-    image_objects[f"layer{layer_number}"] = canvas1.create_image(0, 0, image=images[f"layer{layer_number}"],
-                                                                 anchor='nw')
+    image_objects[f"layer{layer_number}"] = canvas1.create_image((w * 0.242), (h * 0.5), image=images[f"layer{layer_number}"],
+                                                                 anchor='center')
     draw_layers()
 
 
@@ -94,8 +94,8 @@ def create_buttons(bt_count, list_c):
         button = tk.Button(image=image, command=lambda s=n, z=cc: (selected_n.set(s), selected_j.set(0), color_on_scr(z), body()),
                            bg='#de6e82', activebackground='#de6e82', borderwidth=0)
         button.image = image  # Сохраняем ссылку на изображение, чтобы оно не было удалено сборщиком мусора
-        button.place(x=w * .586 + (n % 3) * (w * .124 + x_padding),
-                     y=h * .366 + (n // 3) * (h * .220 + y_padding), anchor='center')
+        button.place(x=(w * .586) + (n % 3) * (w * .124 + w * 0.0083),
+                     y=(h * .366) + (n // 3) * (h * .220 + h * 0.01204), anchor='center')
         buttons.append(button)
 
 
@@ -106,8 +106,8 @@ def hair_buttons():
     buttons.clear()
 
     # Расстояние между кнопками
-    x_padding = 16
-    y_padding = 13
+    x_padding = 0.0083 // w
+    y_padding = 0.01204 // h
 
     buttons = []
     i = selected_i.get()
@@ -137,8 +137,8 @@ def hair_buttons():
                                                                                       body(), color_on_scr(9)), bg='#de6e82',
                                    activebackground='#de6e82', borderwidth=0)
         button.image = image  # Сохраняем ссылку на изображение, чтобы оно не было удалено сборщиком мусора
-        button.place(x=w * .586 + (n % 3) * (w * .124 + x_padding),
-                     y=h * .366 + (n // 3) * (h * .220 + y_padding), anchor='center')
+        button.place(x=w * .586 + (n % 3) * (w * .124 + w * 0.0083),
+                     y=h * .366 + (n // 3) * (h * .220 + h * 0.01204), anchor='center')
         buttons.append(button)
 
 
@@ -157,7 +157,7 @@ def save_screenshot():
 
     # Если пользователь выбрал путь, сохраняем скриншот
     if filepath:
-        screenshot = ImageGrab.grab(bbox=(round(w * .0141), round(h * .0277), round(w * .488), round(h * .972)))
+        screenshot = ImageGrab.grab(bbox=(round(w * .0094), round(h * .0185), round(w * .494), round(h * .981)))
         screenshot.save(filepath)
 
 
