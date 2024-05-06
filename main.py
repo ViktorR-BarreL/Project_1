@@ -90,7 +90,7 @@ def create_buttons(bt_count, list_c):
     for n in range(bt_count):  # Создаем кнопки
         # Загрузка изображения для кнопки
         cc = list_c[n]
-        image = process_image(f'source/{i}/{k}/slots/{n}.png')
+        image = process_image(f'source/Doll1/{k}/slots/{n}.png')
         button = tk.Button(image=image, command=lambda s=n, z=cc: (selected_n.set(s), selected_j.set(0),
                            color_on_scr(z), body()), bg='#de6e82', activebackground='#de6e82', borderwidth=0)
         button.image = image  # Сохраняем ссылку на изображение, чтобы оно не было удалено сборщиком мусора
@@ -114,7 +114,7 @@ def hair_buttons():
     k = selected_k.get()
     for n in range(9):  # Создаем кнопки
         # Загрузка изображения для кнопки
-        image = process_image(f'source/{i}/{k}/slots/{n}.png')
+        image = process_image(f'source/Doll1/{k}/slots/{n}.png')
         # Если это третья кнопка, удаляем 0-й и 6-й слои и добавляем 7-й слой
         if n == 2:
             button = tk.Button(image=image, command=lambda s=n: (selected_n.set(s), image_objects.pop("layer0", None),
