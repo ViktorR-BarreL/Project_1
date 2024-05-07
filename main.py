@@ -2,7 +2,7 @@ from tkinter import *
 import tkinter as tk
 import ctypes
 import winsound
-import pyscreenshot as ImageGrab
+import pyautogui
 from tkinter import filedialog
 from PIL import Image, ImageTk
 
@@ -143,7 +143,7 @@ def save_screenshot():
 
     # Если пользователь выбрал путь, сохраняем скриншот
     if filepath:
-        screenshot = ImageGrab.grab(bbox=(round(w * .0094), round(h * .0185), round(w * .494), round(h * .981)))
+        screenshot = pyautogui.screenshot(region=(round(w * .0094), round(h * .0185), round(w * .494), round(h * .981)))
         screenshot.save(filepath)
 
 
