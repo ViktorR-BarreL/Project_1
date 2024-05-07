@@ -287,8 +287,8 @@ def game():
     eyes_bt.place(relx=.539 + 2 * .0464, rely=.158, anchor='center', relwidth=.04167, relheight=.0741)
 
     hair_bt = tk.Button(command=lambda layer_num=6, k=3, j=0: (delete_hairs(3), selected_layer.set(layer_num),
-                                                               selected_k.set(k), delete_colors(), selected_j.set(j), hair_buttons()),
-                        borderwidth=0, bg='#de6e82', activebackground='#de6e82', image=hair_img)
+                        selected_k.set(k), delete_colors(), selected_j.set(j), hair_buttons()), borderwidth=0,
+                        bg='#de6e82', activebackground='#de6e82', image=hair_img)
     hair_bt.place(relx=.539 + 3 * .0464, rely=.158, anchor='center', relwidth=.04167, relheight=.0741)
 
     top_bt = tk.Button(command=lambda layer_num=11, k=4: (delete_category(4, 11), selected_layer.set(layer_num),
@@ -325,6 +325,7 @@ def game():
 # Настройка основного окна
 screen = Tk()
 screen.iconbitmap('source/etc/icon.ico')
+screen.title = 'Dress Me Up'
 
 w = screen.winfo_screenwidth()
 h = screen.winfo_screenheight()
