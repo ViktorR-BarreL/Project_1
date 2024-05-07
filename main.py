@@ -143,7 +143,8 @@ def save_screenshot():
 
     # Если пользователь выбрал путь, сохраняем скриншот
     if filepath:
-        screenshot = pyautogui.screenshot(region=(round(w * .0094), round(h * .0185), round(w * .494), round(h * .981)))
+        # Захватываем область холста
+        screenshot = pyautogui.screenshot(region=(round(w * 0.00885), round(h * 0.0185), round(w * 0.4844), round(h * 0.9629)))
         screenshot.save(filepath)
 
 
