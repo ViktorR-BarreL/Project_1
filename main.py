@@ -327,7 +327,6 @@ def game():
 screen = Tk()
 screen.iconbitmap('source/etc/icon.ico')
 screen.title = 'Dress Me Up'
-
 w = screen.winfo_screenwidth()
 h = screen.winfo_screenheight()
 
