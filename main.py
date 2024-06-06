@@ -251,15 +251,15 @@ def game():
     label_bg_menu = Label(bg='#96b3cf', image=bg_menu)
     label_bg_menu.place(relx=.718, rely=.598, anchor='center')
 
-    label_bg_charat = Label(bg='#96b3cf', image=so_so)
+    label_bg_charat = Label(bg='#96b3cf', image=bg_game)
     label_bg_charat.place(relx=.251, rely=.5, anchor='center')
 
     canvas1 = tk.Canvas(width=w * .484, height=h * .963)
     canvas1.place(relx=.251, rely=.5, anchor='center')
 
     i2 = selected_i.get()
-    add_layer(4, f'source/{i2}/0/контур.png')
-    add_layer(3, f'source/{i2}/0/тень.png')
+    add_layer(4, f'source/{i2}/0/outline.png')
+    add_layer(3, f'source/{i2}/0/shadow.png')
     add_layer(1, f'source/{i2}/0/0/0.png')
     add_layer(5, f'source/{i2}/2/0/0.png')
 
@@ -389,7 +389,7 @@ bar_cat = process_image('source/etc/barcat.png')
 bar_col = process_image('source/etc/barcol.png')
 
 # Рамка для фона персонажа
-so_so = process_image('source/etc/so.png')
+bg_game = process_image('source/etc/background.png')
 
 # Кнопка сохранения
 save = process_image('source/etc/save.png')
